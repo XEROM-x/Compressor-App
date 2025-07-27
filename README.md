@@ -11,3 +11,4 @@ A modern file compression & extraction tool (like WinRAR) built with PyQt5.
 ```bash
 pip install -r requirements.txt
 python compressor_modern.py
+or you can directly access the setup in dist folder
