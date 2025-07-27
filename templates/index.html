@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Universal Compressor & Extractor</title>
+    <style>
+        body { font-family: Arial; text-align: center; background: #f9f9f9; }
+        h1 { color: #0078d4; }
+        .container { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
+        form { background: #fff; padding: 20px; border: 1px solid #ccc; border-radius: 10px; width: 400px; }
+        input, select { width: 100%; margin: 10px 0; padding: 8px; }
+        button { padding: 8px 16px; background: #0078d4; color: white; border: none; cursor: pointer; }
+        button:hover { background: #005a9e; }
+        .flash { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Universal Compressor & Extractor (WinRAR style)</h1>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <!-- Extract Section -->
+        <form action="/unzip" method="post" enctype="multipart/form-data">
+            <h2>Extract Files</h2>
+            <input type="file" name="zipfile" required><br>
+            <input type="text" name="extract_path" placeholder="Destination folder (e.g. D:\Extracted)" required><br>
+            <button type="submit">Extract</button>
+        </form>
+
+        <!-- Compress Section -->
+        <form action="/compress" method="post" enctype="multipart/form-data">
+            <h2>Compress Files</h2>
+            <input type="file" name="files[]" multiple required><br>
+            <select name="format" required>
+                <option value="">Select Format</option>
+                <option value="zip">ZIP</option>
+                <option value="tar">TAR</option>
+                <option value="gztar">TAR.GZ</option>
+                <option value="bztar">TAR.BZ2</option>
+                <option value="7z">7Z</option>
+                <option value="rar">RAR</option>
+            </select><br>
+            <input type="text" name="output_name" placeholder="Output file name (without extension)" required><br>
+            <button type="submit">Compress</button>
+        </form>
+    </div>
+</body>
+</html>
